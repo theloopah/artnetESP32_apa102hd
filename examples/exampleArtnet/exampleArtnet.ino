@@ -6,8 +6,10 @@
 FASTLED_USING_NAMESPACE
 
 //The following has to be adapted to your specifications
-#define LED_WIDTH 123
-#define LED_HEIGHT 48
+#define LED_WIDTH 30
+#define LED_HEIGHT 5
+#define DATA_PIN 26
+#define CLOCK_PIN 32
 #define NUM_LEDS LED_WIDTH*LED_HEIGHT
 #define UNIVERSE_SIZE 170 //my setup is 170 leds per universe no matter if the last universe is not full.
 CRGB leds[NUM_LEDS];
@@ -46,7 +48,7 @@ void setup() {
     Serial.println(WiFi.localIP());
 
 //set up your FastLED to your configuration ps: the more pins the better
-    FastLED.addLeds<NEOPIXEL, 12>(leds, NUM_LEDS);
+    FastLED.addLeds<APA102HD, DATA_PIN, CLOCK_PIN>(leds, NUM_LEDS);
 
     artnet.setFrameCallback(&displayfunction); //set the function that will be called back a frame has been received
     artnet.setLedsBuffer((uint8_t*)leds); //set the buffer to put the frame once a frame has been received
